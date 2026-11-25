@@ -2,12 +2,12 @@
 # using fixed ip addresses
 # to see all network use docker network ls
 # to see config use docker network inspect minimal-minion-activemq_N000
-# note gateway is 172.20.0.1 
+# note gateway is 1 
 networks:
   N020:
     ipam:
       config:
-        - subnet: 172.20.0.0/24
+         - subnet: 172.20.3.0/24
 
 volumes:
   semaphore-postgres:
@@ -36,13 +36,13 @@ services:
       POSTGRES_DB: semaphore
     networks:
       N020:
-        ipv4_address: 172.20.0.27
+        ipv4_address: 172.20.3.27
 
   semaphore:
-    container_name: semaphore
+    container_name: semaphore-example7-2
     restart: unless-stopped
     ports:
-      - 3000:3000
+      - 3001:3000
     # image: semaphoreui/semaphore:v2.17.0
     image: entimoss/semaphore:v2.17.0
     build: ./container-fs/semaphore
@@ -99,7 +99,7 @@ services:
       -  postgres-semaphore
     networks:
       N020:
-        ipv4_address: 172.20.0.21
+        ipv4_address: 172.20.3.21
   
   #############################################################
   # IMAGES WITH SYSTEMD INSTALLED AND SSH ENABLED
@@ -141,7 +141,7 @@ services:
       - "8084:80"
     networks:
       N020:
-        ipv4_address: 172.20.0.26
+        ipv4_address: 172.20.3.26
   
 #  # from https://hub.docker.com/layers/antmelekhin/docker-systemd/ubuntu-24.04/
 #  ## ubuntu test container - with systemd
@@ -172,7 +172,7 @@ services:
       - "8085:80"
     networks:
       N020:
-        ipv4_address: 172.20.0.28
+        ipv4_address: 172.20.3.28
 
   # IMAGES WITH SSH BUT NO SYSTEMD
   ## test container - no systemd
@@ -195,7 +195,7 @@ services:
 #      -  semaphore
 #    networks:
 #      N020:
-#        ipv4_address: 172.20.0.22
+#        ipv4_address: 172.20.3.22
         
   ## test container - no systemd
 #  alma1:
@@ -217,5 +217,5 @@ services:
 #      -  ubuntu1
 #    networks:
 #      N020:
-#        ipv4_address: 172.20.0.23
+#        ipv4_address: 172.20.3.23
       
